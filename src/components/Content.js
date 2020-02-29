@@ -28,11 +28,16 @@ const Content = () => {
     const inputs = document.querySelectorAll('input');
     const textarea = document.querySelector('textarea');
 
-    const onReset = () => {
-        inputs.forEach(input => {
-            input.value = ''
-        });
-        textarea.value = '';
+    const onReset = () => {       
+        setCheckedName(null)
+        setCheckedEmail(null)
+
+        if (inputs) {
+            inputs.forEach(input => {
+                input.value = ''
+            });
+        }
+        if (textarea) textarea.value = '';   
     };
 
     const onSubmit = (event) => {
@@ -116,9 +121,9 @@ const Content = () => {
 
                 <ButtonDiv>
                     <Button 
-                        type='reset' 
+                        type='button' 
                         className='btn btn-secondary'
-                        onReset={() => onReset()}>
+                        onClick={() => onReset()}>
                             Очистить</Button>
                     <Button 
                         type='submit' 
