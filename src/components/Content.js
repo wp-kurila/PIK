@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FormItem from './FormItem';
 import styled from 'styled-components';
 
@@ -25,21 +25,24 @@ const Content = () => {
     const [checkedName, setCheckedName] = useState(null);
     const [checkedEmail, setCheckedEmail] = useState(null);
 
-    const inputs = document.querySelectorAll('input');
-    const textarea = document.querySelector('textarea');
+    const [inputs, setInputs] = useState(null);
+    const [textArea, setTextArea] = useState(null);    
 
-    const onReset = () => {       
+    useEffect(() => {
+        setInputs(document.querySelectorAll('input'))
+        setTextArea(document.querySelector('textarea'))
+    }, [])
+
+    const onReset = () => {
+        inputs.forEach(input => {
+            input.value = ''
+        });
+        textArea.value = '';
+
         setCheckedName(null)
         setCheckedEmail(null)
-
-        if (inputs) {
-            inputs.forEach(input => {
-                input.value = ''
-            });
-        }
-        if (textarea) textarea.value = '';   
     };
-
+    
     const onSubmit = (event) => {
         event.preventDefault();
 
@@ -48,7 +51,7 @@ const Content = () => {
                 inputs.forEach(input => {
                     console.log(`${input.name}: ${input.value}`)
                 });
-                console.log(`${textarea.name}: ${textarea.value}`)
+                console.log(`${textArea.name}: ${textArea.value}`)
             }
         }
     };
